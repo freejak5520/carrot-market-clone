@@ -1,20 +1,22 @@
 export default function Home() {
-  2;
   return (
     <main className="flex h-screen items-center justify-center bg-gray-100 p-5 ">
-      <div className="flex w-full max-w-screen-sm flex-col gap-3 rounded-xl bg-white p-5 shadow-lg ring ring-transparent transition-shadow *:outline-none has-[:invalid]:bg-red-100 has-[:invalid]:ring-red-500 md:flex-row">
-        <input
-          className="peer h-10 w-full rounded-xl bg-gray-200 py-3 pl-5 ring ring-transparent transition-shadow focus:ring-green-500 invalid:focus:ring-red-500"
-          type="text"
-          required
-          placeholder="Email address"
-        />
-        <span className="hidden font-medium text-red-500 peer-invalid:block">
-          Email is required.
-        </span>
-        <button className="whitespace-nowrap rounded-xl bg-black py-2 font-medium text-white transition-transform active:scale-95 peer-invalid:bg-gray-300 md:px-10">
-          Log in
-        </button>
+      <div className="flex w-full max-w-screen-sm flex-col gap-3 rounded-xl bg-white p-5 shadow-lg">
+        {["1", "me", "you", "Yourself"].map((person, index) => (
+          <div
+            className="group/item flex items-center gap-4 rounded-xl"
+            key={index}
+          >
+            <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+            <span className="text-lg font-medium empty:h-3 empty:w-24 empty:animate-pulse empty:rounded-full empty:bg-gray-300 group-focus-within/item:text-red-500 group-hover/item:text-red-500">
+              {person}
+            </span>
+            <div className="relative flex size-5 items-center justify-center rounded-full bg-red-500 text-white">
+              <span className="z-10">{index}</span>
+              <div className="absolute size-6 animate-ping rounded-full bg-red-500"></div>
+            </div>
+          </div>
+        ))}
       </div>
     </main>
   );
