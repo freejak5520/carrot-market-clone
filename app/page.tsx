@@ -10,7 +10,8 @@ export default function Home() {
           <span className="hidden group-invalid:opacity-100 group-focus-within:block">
             Make sure it is a valid email...
           </span>
-          <button>Submit</button>
+          <a>test</a>
+          <button className="btn">Submit</button>
         </div>
       </div>
     </main>
