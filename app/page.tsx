@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between bg-neutral-800 p-5">
+    <div className="flex min-h-screen w-full flex-col items-center justify-between p-5">
       <div className="my-auto flex flex-col items-center gap-2 *:font-medium">
         <span className="text-9xl">🥕</span>
         <h1 className="text-4xl">당근당근</h1>

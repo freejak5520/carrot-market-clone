@@ -19,7 +19,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} mx-auto max-w-screen-sm bg-neutral-900 text-white`}
       >
-        {children}
+        <div className="h-screen w-full bg-neutral-800">{children}</div>
       </body>
     </html>
   );
