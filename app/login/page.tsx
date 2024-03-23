@@ -6,11 +6,11 @@ const LoginPage = () => {
   return (
     <div className="flex w-full flex-col gap-10 px-12 py-5">
       <div className="flex flex-col gap-2 *:font-medium">
-        <h1 className="text-2xl">로그인</h1>
+        <h1 className="text-2xl">Log in</h1>
         <h2 className="text-xl">Log in with email and password.</h2>
       </div>
       <form className="flex flex-col gap-3">
-        <FormInput type="email" placeholder="이메일" required errors={[]} />
+        <FormInput type="email" placeholder="Email" required errors={[]} />
         <FormInput
           type="password"
           placeholder="Password"
@@ -23,4 +23,5 @@ const LoginPage = () => {
     </div>
   );
 };
+
 export default LoginPage;
