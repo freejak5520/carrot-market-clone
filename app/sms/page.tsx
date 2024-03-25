@@ -22,7 +22,7 @@ const SMSLoginPage = () => {
           required
           errors={[]}
         />
-        <FormButton loading={false}>Send message</FormButton>
+        <FormButton>Send message</FormButton>
       </form>
     </div>
   );

@@ -1,19 +1,22 @@
+"use client";
+
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
+import { useFormStatus } from "react-dom";
 
 interface FormButtonProps {
-  loading?: boolean;
   children?: React.ReactNode;
   onClick?: () => void;
 }
 
-const FormButton = ({ loading, children, onClick }: FormButtonProps) => {
+const FormButton = ({ children, onClick }: FormButtonProps) => {
+  const { pending } = useFormStatus();
   return (
     <button
       className="btn-primary h-10 disabled:cursor-not-allowed disabled:bg-neutral-400 disabled:text-neutral-300"
-      disabled={loading}
+      disabled={pending}
       onClick={onClick}
     >
-      {loading ? (
+      {pending ? (
         <span className="flex items-center justify-center">
           <ArrowPathIcon className="size-6 animate-spin" />
         </span>
