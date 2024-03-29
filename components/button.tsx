@@ -8,7 +8,7 @@ interface FormButtonProps {
   onClick?: () => void;
 }
 
-const FormButton = ({ children, onClick }: FormButtonProps) => {
+const Button = ({ children, onClick }: FormButtonProps) => {
   const { pending } = useFormStatus();
   return (
     <button
@@ -27,4 +27,4 @@ const FormButton = ({ children, onClick }: FormButtonProps) => {
   );
 };
 
-export default FormButton;
+export default Button;

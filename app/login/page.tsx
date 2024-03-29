@@ -1,14 +1,14 @@
 "use client";
 
-import FormButton from "@/components/form-btn";
-import FormInput from "@/components/form-input";
+import Button from "@/components/button";
+import Input from "@/components/input";
 import SocialLogin from "@/components/social-login-section";
 import { useFormState } from "react-dom";
-import { onLogin } from "./actions";
+import { login } from "./actions";
 
 // server route handler
 const LoginPage = () => {
-  const [state, action] = useFormState(onLogin, { errors: [] });
+  const [state, formAction] = useFormState(login, null);
 
   return (
     <div className="flex w-full flex-col gap-10 px-12 py-5">
@@ -16,22 +16,22 @@ const LoginPage = () => {
         <h1 className="text-2xl">Log in</h1>
         <h2 className="text-xl">Log in with email and password.</h2>
       </div>
-      <form className="flex flex-col gap-3" action={action}>
-        <FormInput
+      <form className="flex flex-col gap-3" action={formAction}>
+        <Input
           name="email"
           type="email"
           placeholder="Email"
           required
-          errors={[]}
+          errors={state?.fieldErrors.email}
         />
-        <FormInput
+        <Input
           name="password"
           type="password"
           placeholder="Password"
           required
-          errors={state.errors}
+          errors={state?.fieldErrors.password}
         />
-        <FormButton>Log in</FormButton>
+        <Button>Log in</Button>
       </form>
       <SocialLogin />
     </div>

@@ -1,13 +1,14 @@
 "use client";
 
-import FormButton from "@/components/form-btn";
-import FormInput from "@/components/form-input";
+import Button from "@/components/button";
+import Input from "@/components/input";
 import SocialLogin from "@/components/social-login-section";
+import { PASSWORD_MIN_LENGTH } from "@/lib/constants";
 import { useFormState } from "react-dom";
-import { onCreateAccount } from "./actions";
+import { createAccount } from "./actions";
 
 const CreateAccountPage = () => {
-  const [state, action] = useFormState(onCreateAccount, null);
+  const [state, formAction] = useFormState(createAccount, null);
 
   return (
     <div className="flex w-full flex-col gap-10 px-12 py-5">
@@ -17,35 +18,37 @@ const CreateAccountPage = () => {
           Please enter the information below to sign up
         </h2>
       </div>
-      <form className="flex flex-col gap-3" action={action}>
-        <FormInput
+      <form className="flex flex-col gap-3" action={formAction}>
+        <Input
           name="username"
           type="text"
           placeholder="Username"
-          errors={state?.fieldErrors?.username}
+          errors={state?.fieldErrors.username}
         />
-        <FormInput
+        <Input
           name="email"
           type="text"
           placeholder="Email"
-          errors={state?.fieldErrors?.email}
+          errors={state?.fieldErrors.email}
           autoComplete="username"
         />
-        <FormInput
+        <Input
           name="password"
           type="password"
           placeholder="Password"
-          errors={state?.fieldErrors?.password}
+          minLength={PASSWORD_MIN_LENGTH}
+          errors={state?.fieldErrors.password}
           autoComplete="new-password"
         />
-        <FormInput
+        <Input
           name="confirm_password"
           type="password"
           placeholder="Password confirmation"
-          errors={state?.fieldErrors?.confirm_password}
+          minLength={PASSWORD_MIN_LENGTH}
+          errors={state?.fieldErrors.confirm_password}
           autoComplete="new-password"
         />
-        <FormButton>Create account</FormButton>
+        <Button>Create account</Button>
       </form>
       <SocialLogin />
     </div>

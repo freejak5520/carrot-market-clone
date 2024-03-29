@@ -1,34 +1,24 @@
-import { HTMLInputTypeAttribute } from "react";
+import { InputHTMLAttributes } from "react";
 
 // interface, type 어느정도는 취향 차이
 // type의 기능이 필요하기 전 까지 interface를 사용
 // type의 기능이란?
 interface FormInputProps {
-  type?: HTMLInputTypeAttribute | undefined;
-  placeholder?: string;
-  required?: boolean;
+  name: string;
   errors?: string[];
-  name?: string;
-  autoComplete?: string;
 }
 
-const FormInput = ({
-  type,
-  placeholder,
-  required,
-  errors,
+const Input = ({
   name,
-  autoComplete,
-}: FormInputProps) => {
+  errors,
+  ...props
+}: FormInputProps & InputHTMLAttributes<HTMLInputElement>) => {
   return (
     <div className="flex flex-col gap-2">
       <input
         name={name}
         className="h-10 w-full rounded-md border-none bg-transparent ring-2 ring-neutral-200 transition placeholder:text-neutral-400 focus:outline-none focus:ring-4 focus:ring-orange-500"
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        autoComplete={autoComplete}
+        {...props}
       />
       {errors &&
         errors.map((error, index) => (
@@ -40,4 +30,4 @@ const FormInput = ({
   );
 };
 
-export default FormInput;
+export default Input;
