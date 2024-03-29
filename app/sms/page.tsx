@@ -3,10 +3,10 @@
 import Button from "@/components/button";
 import Input from "@/components/input";
 import { useFormState } from "react-dom";
-import { verifySms } from "./actions";
+import { verifySmsAction } from "./actions";
 
 const SMSLoginPage = () => {
-  const [state, formAction] = useFormState(verifySms, {});
+  const [state, formAction] = useFormState(verifySmsAction, {});
 
   return (
     <div className="flex flex-col gap-10 px-6 py-8">

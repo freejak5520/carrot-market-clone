@@ -29,7 +29,7 @@ const checkPasswords = ({
   confirm_password: string;
 }) => password === confirm_password;
 
-const schema = z
+const createAccountSchema = z
   .object({
     username: z
       .string({
@@ -66,10 +66,10 @@ const schema = z
     path: ["confirm_password"],
   });
 
-export const createAccount = async (_: any, formData: FormData) => {
+export const createAccountAction = async (_: any, formData: FormData) => {
   const formDataObject = Object.fromEntries(formData.entries());
 
-  const parsedData = schema.safeParse(formDataObject);
+  const parsedData = createAccountSchema.safeParse(formDataObject);
 
   if (!parsedData.success) {
     return parsedData.error.flatten();

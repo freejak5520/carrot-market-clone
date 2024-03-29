@@ -4,11 +4,11 @@ import Button from "@/components/button";
 import Input from "@/components/input";
 import SocialLogin from "@/components/social-login-section";
 import { useFormState } from "react-dom";
-import { login } from "./actions";
+import { loginAction } from "./actions";
 
 // server route handler
 const LoginPage = () => {
-  const [state, formAction] = useFormState(login, null);
+  const [state, formAction] = useFormState(loginAction, null);
 
   return (
     <div className="flex w-full flex-col gap-10 px-12 py-5">

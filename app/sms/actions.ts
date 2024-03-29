@@ -1,6 +1,6 @@
 "use server";
 
-export const verifySms = async (state: any, formData: FormData) => {
+export const verifySmsAction = async (state: any, formData: FormData) => {
   console.log(state, formData);
 
   return {};

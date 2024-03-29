@@ -5,10 +5,10 @@ import Input from "@/components/input";
 import SocialLogin from "@/components/social-login-section";
 import { PASSWORD_MIN_LENGTH } from "@/lib/constants";
 import { useFormState } from "react-dom";
-import { createAccount } from "./actions";
+import { createAccountAction } from "./actions";
 
 const CreateAccountPage = () => {
-  const [state, formAction] = useFormState(createAccount, null);
+  const [state, formAction] = useFormState(createAccountAction, null);
 
   return (
     <div className="flex w-full flex-col gap-10 px-12 py-5">
