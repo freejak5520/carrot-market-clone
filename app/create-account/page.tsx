@@ -3,9 +3,8 @@
 import FormButton from "@/components/form-btn";
 import FormInput from "@/components/form-input";
 import SocialLogin from "@/components/social-login-section";
-import { redirect } from "next/navigation";
+import { useFormState } from "react-dom";
 import { onCreateAccount } from "./actions";
-import { useFormState, useFormStatus } from "react-dom";
 
 const CreateAccountPage = () => {
   const [state, action] = useFormState(onCreateAccount, null);
@@ -30,18 +29,21 @@ const CreateAccountPage = () => {
           type="text"
           placeholder="Email"
           errors={state?.fieldErrors?.email}
+          autoComplete="username"
         />
         <FormInput
           name="password"
           type="password"
           placeholder="Password"
           errors={state?.fieldErrors?.password}
+          autoComplete="new-password"
         />
         <FormInput
           name="confirm_password"
           type="password"
           placeholder="Password confirmation"
           errors={state?.fieldErrors?.confirm_password}
+          autoComplete="new-password"
         />
         <FormButton>Create account</FormButton>
       </form>

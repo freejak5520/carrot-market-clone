@@ -9,6 +9,7 @@ interface FormInputProps {
   required?: boolean;
   errors?: string[];
   name?: string;
+  autoComplete?: string;
 }
 
 const FormInput = ({
@@ -17,6 +18,7 @@ const FormInput = ({
   required,
   errors,
   name,
+  autoComplete,
 }: FormInputProps) => {
   return (
     <div className="flex flex-col gap-2">
@@ -26,6 +28,7 @@ const FormInput = ({
         type={type}
         placeholder={placeholder}
         required={required}
+        autoComplete={autoComplete}
       />
       {errors &&
         errors.map((error, index) => (
