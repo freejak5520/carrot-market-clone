@@ -29,7 +29,7 @@ const loginSchema = z.object({
     .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
 });
 
-export const loginAction = async (_: any, formData: FormData) => {
+export const login = async (_: any, formData: FormData) => {
   const formDataObject = Object.fromEntries(formData.entries());
 
   const parsedData = loginSchema.safeParse(formDataObject);

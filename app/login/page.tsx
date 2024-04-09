@@ -4,11 +4,11 @@ import Button from "@/components/button";
 import Input from "@/components/input";
 import SocialLogin from "@/components/social-login-section";
 import { useFormState } from "react-dom";
-import { loginAction } from "./actions";
+import { login } from "./actions";
 
 // server route handler
 const LoginPage = () => {
-  const [state, formAction] = useFormState(loginAction, null);
+  const [state, action] = useFormState(login, null);
 
   return (
     <div className="flex w-full flex-col gap-10 px-12 py-5">
@@ -16,7 +16,7 @@ const LoginPage = () => {
         <h1 className="text-2xl">Log in</h1>
         <h2 className="text-xl">Log in with email and password.</h2>
       </div>
-      <form className="flex flex-col gap-3" action={formAction}>
+      <form className="flex flex-col gap-3" action={action}>
         <Input
           name="email"
           type="email"
