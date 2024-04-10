@@ -20,3 +20,5 @@ export const EMAIL_TYPE_ERROR = "이메일은 문자열 형태여야 합니다."
 export const EMAIL_REQUIRED_ERROR = "이메일을 입력해 주세요.";
 export const EMAIL_UNIQUE_ERROR = "이미 사용중인 이메일입니다.";
 export const EMAIL_ERROR = "이메일 형식이 아닙니다.";
+
+export const LOGIN_FAIL_ERROR = "인증 정보가 올바르지 않습니다.";

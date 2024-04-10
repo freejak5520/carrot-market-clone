@@ -6,6 +6,7 @@ import SocialLogin from "@/components/social-login-section";
 import { PASSWORD_MIN_LENGTH } from "@/lib/constants";
 import { useFormState } from "react-dom";
 import { createAccountAction } from "./actions";
+import Link from "next/link";
 
 const CreateAccountPage = () => {
   const [state, formAction] = useFormState(createAccountAction, null);
@@ -13,6 +14,7 @@ const CreateAccountPage = () => {
   return (
     <div className="flex w-full flex-col gap-10 px-12 py-5">
       <div className="flex flex-col gap-2 *:font-medium">
+        <Link href="/">Home</Link>
         <h1 className="text-2xl">Welcome</h1>
         <h2 className="text-xl">
           Please enter the information below to sign up
@@ -54,4 +56,5 @@ const CreateAccountPage = () => {
     </div>
   );
 };
+
 export default CreateAccountPage;

@@ -1,6 +1,5 @@
 "use server";
 
-import * as bcrypt from "bcrypt";
 import {
   EMAIL_ERROR,
   EMAIL_REQUIRED_ERROR,
@@ -22,8 +21,9 @@ import {
   USERNAME_UNIQUE_ERROR,
 } from "@/lib/constants";
 import db from "@/lib/db";
+import { getSession } from "@/lib/session";
+import bcrypt from "bcrypt";
 import { z } from "zod";
-import { cookies } from "next/headers";
 
 const checkUsernameValidated = (username: string) => {
   return !username.includes(" ");
@@ -88,8 +88,8 @@ const createAccountSchema = z
         invalid_type_error: PASSWORD_TYPE_ERROR,
         required_error: PASSWORD_REQUIRED_ERROR,
       })
-      .min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_ERROR),
-    // .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
+      .min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_ERROR)
+      .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
     confirm_password: z
       .string({
         invalid_type_error: PASSWORD_TYPE_ERROR,
@@ -123,4 +123,9 @@ export const createAccountAction = async (_: any, formData: FormData) => {
       id: true,
     },
   });
+
+  const ironSession = await getSession();
+
+  ironSession.userId = user.id;
+  ironSession.save();
 };

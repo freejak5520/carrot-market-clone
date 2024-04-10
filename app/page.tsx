@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Home() {
+const Home = () => {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-between p-5">
       <div className="my-auto flex flex-col items-center gap-2 *:font-medium">
@@ -12,7 +12,7 @@ export default function Home() {
       </div>
       <div />
       <div className="flex w-full flex-col items-center gap-3">
-        <Link href="/create-account" className="btn-primary py-2.5 text-lg">
+        <Link href="/join" className="btn-primary py-2.5 text-lg">
           Get Started
         </Link>
         <div className="flex gap-2">
@@ -24,4 +24,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Home;
