@@ -4,6 +4,7 @@ import {
   EMAIL_ERROR,
   EMAIL_REQUIRED_ERROR,
   EMAIL_TYPE_ERROR,
+  EMAIL_UNIQUE_ERROR,
   PASSWORD_MIN_LENGTH,
   PASSWORD_MIN_LENGTH_ERROR,
   PASSWORD_NOT_MATCH_ERROR,
@@ -17,17 +18,49 @@ import {
   USERNAME_MIN_LENGTH,
   USERNAME_REQUIRED_ERROR,
   USERNAME_TYPE_ERROR,
+  USERNAME_UNIQUE_ERROR,
 } from "@/lib/constants";
+import db from "@/lib/db";
 import { z } from "zod";
 
-const checkUsername = (username: string) => !username.includes(" ");
+const checkUsernameValidated = (username: string) => {
+  return !username.includes(" ");
+};
+
+const checkUsernameUnique = async (username: string) => {
+  const user = await db.user.findUnique({
+    where: {
+      username,
+    },
+    select: {
+      id: true,
+    },
+  });
+  return !user;
+};
+
+const checkEmailUnique = async (email: string) => {
+  const user = await db.user.findUnique({
+    where: {
+      email,
+    },
+    select: {
+      id: true,
+    },
+  });
+  return !user;
+};
+
 const checkPasswords = ({
   password,
   confirm_password,
 }: {
   password: string;
   confirm_password: string;
-}) => password === confirm_password;
+}) => {
+  console.log("checkPasswords");
+  return password === confirm_password;
+};
 
 const createAccountSchema = z
   .object({
@@ -40,13 +73,15 @@ const createAccountSchema = z
       .trim()
       .min(USERNAME_MIN_LENGTH, USERNAME_LENGTH_ERROR)
       .max(USERNAME_MAX_LENGTH, USERNAME_LENGTH_ERROR)
-      .refine(checkUsername, USERNAME_CHECK_ERROR),
+      .refine(checkUsernameValidated, USERNAME_CHECK_ERROR)
+      .refine(checkUsernameUnique, USERNAME_UNIQUE_ERROR),
     email: z
       .string({
         invalid_type_error: EMAIL_TYPE_ERROR,
         required_error: EMAIL_REQUIRED_ERROR,
       })
-      .email(EMAIL_ERROR),
+      .email(EMAIL_ERROR)
+      .refine(checkEmailUnique, EMAIL_UNIQUE_ERROR),
     password: z
       .string({
         invalid_type_error: PASSWORD_TYPE_ERROR,
@@ -69,11 +104,9 @@ const createAccountSchema = z
 export const createAccountAction = async (_: any, formData: FormData) => {
   const formDataObject = Object.fromEntries(formData.entries());
 
-  const parsedData = createAccountSchema.safeParse(formDataObject);
+  const parsedData = await createAccountSchema.safeParseAsync(formDataObject);
 
   if (!parsedData.success) {
     return parsedData.error.flatten();
   }
-
-  console.log(parsedData.data);
 };
