@@ -1,5 +1,6 @@
 "use server";
 
+import * as bcrypt from "bcrypt";
 import {
   EMAIL_ERROR,
   EMAIL_REQUIRED_ERROR,
@@ -22,6 +23,7 @@ import {
 } from "@/lib/constants";
 import db from "@/lib/db";
 import { z } from "zod";
+import { cookies } from "next/headers";
 
 const checkUsernameValidated = (username: string) => {
   return !username.includes(" ");
@@ -58,7 +60,6 @@ const checkPasswords = ({
   password: string;
   confirm_password: string;
 }) => {
-  console.log("checkPasswords");
   return password === confirm_password;
 };
 
@@ -87,8 +88,8 @@ const createAccountSchema = z
         invalid_type_error: PASSWORD_TYPE_ERROR,
         required_error: PASSWORD_REQUIRED_ERROR,
       })
-      .min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_ERROR)
-      .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
+      .min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_ERROR),
+    // .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
     confirm_password: z
       .string({
         invalid_type_error: PASSWORD_TYPE_ERROR,
@@ -109,4 +110,17 @@ export const createAccountAction = async (_: any, formData: FormData) => {
   if (!parsedData.success) {
     return parsedData.error.flatten();
   }
+
+  const hashedPassword = await bcrypt.hash(parsedData.data.password, 12);
+
+  const user = await db.user.create({
+    data: {
+      username: parsedData.data.username,
+      email: parsedData.data.email,
+      password: hashedPassword,
+    },
+    select: {
+      id: true,
+    },
+  });
 };
