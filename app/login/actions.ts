@@ -44,7 +44,7 @@ const checkAuthenticate = async (
       message: LOGIN_FAIL_ERROR,
       path: ["password"],
     });
-    return false;
+    return z.NEVER;
   }
 
   if (!user.password || !(await bcrypt.compare(password, user.password))) {
@@ -53,7 +53,7 @@ const checkAuthenticate = async (
       message: LOGIN_FAIL_ERROR,
       path: ["password"],
     });
-    return false;
+    return z.NEVER;
   }
 
   const session = await getSession();
