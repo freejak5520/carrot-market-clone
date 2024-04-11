@@ -77,8 +77,8 @@ const loginSchema = z
         invalid_type_error: PASSWORD_TYPE_ERROR,
         required_error: PASSWORD_REQUIRED_ERROR,
       })
-      .min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_ERROR)
-      .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
+      .min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_ERROR),
+    // .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
   })
   .superRefine(checkAuthenticate);
 
